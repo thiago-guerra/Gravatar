@@ -5,12 +5,12 @@ namespace Gravatar
 {
     public static class GravatarExtension
     {
-        public static string ToGravatar(this string email)
+        public static string ToGravatar(this string email, int size = 80)
         {
             if (string.IsNullOrEmpty(email))
                 return string.Empty;
 
-            var md5 = MD5.Create();
+             var md5 = MD5.Create();
             var inputBytes = Encoding.ASCII.GetBytes(email);
             var hashBytes = md5.ComputeHash(inputBytes);
 
@@ -18,7 +18,7 @@ namespace Gravatar
             foreach (var t in hashBytes)
                 sb.Append(t.ToString("X2"));
 
-            return $"https://www.gravatar.com/avatar/{sb.ToString().ToLower()}";
+            return $"https://www.gravatar.com/avatar/{sb.ToString().ToLower()}?s={size}";
         }
     }
 }
